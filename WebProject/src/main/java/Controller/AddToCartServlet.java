@@ -16,20 +16,16 @@ public class AddToCartServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("AddToCartServlet doPost method is called");
-
+        //Các bước thực hiện
+        //Gio hàng sẽ có kiểu dữ liệu là map (Key,Vaue) key la ma san pham va value se la san pham va so luong
         HttpSession session = req.getSession();
-        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-        if (cart == null) cart = new ShoppingCart();
-        System.out.println("Entering AddToCartServlet");
-        String maSp = req.getParameter("masanpham");
-        System.out.println("masanpham parameter: " + maSp);
-        if (maSp != null && !maSp.isEmpty()) {
-            cart.add(maSp);
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");//Đây là giỏ hàng được gán với session
+        if (cart == null) cart = new ShoppingCart();//Kiểm tra xem nếu giỏ hàng đã từng được tạo ra chưa nếu chưa sé tạo mới
+        String maSp = req.getParameter("masanpham");//Lấy mã sản phẩm được chọn
+        if (maSp != null && !maSp.isEmpty()) {//Kiểm tra mã sản phẩm có tồn tại không và có bị rỗng không
+            cart.add(maSp);//Thêm sản phẩm vào giỏ hàng và đặt lại giỏ hàng vào sesion
             session.setAttribute("cart", cart);
-            System.out.println("add success");
         }
         resp.sendRedirect("home");
-        System.out.println(cart.getSize());
     }
 }

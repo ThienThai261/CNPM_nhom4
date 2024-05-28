@@ -15,16 +15,40 @@
     <title>Title</title>
     <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid red;
+            background-color: #fdd;
+        }
+    </style>
 </head>
 <body>
-<jsp:include page="header.jsp" />
+<jsp:include page="header.jsp"/>
 
 <div class="container">
+    <% if (request.getAttribute("errorMessage") != null) { %>
+    <div class="error-message">
+        <%= request.getAttribute("errorMessage") %>
+    </div>
+    <% } %>
+    <% if (request.getAttribute("message") != null) { %>
+    <div class="error-message">
+        <%= request.getAttribute("message") %>
+    </div>
+    <% } %>
+
     <div class="small-container cart-page">
         <table class="cart-table">
             <tr>
+                <th scope="col"></th>
                 <th scope="col">Stt</th>
                 <th scope="col">Sản phẩm</th>
                 <th scope="col"></th>
@@ -39,11 +63,13 @@
                 List<CartItems> sanPhams = (List<CartItems>) session.getAttribute("list-sp");
                 double tongGiaTri = 0;
                 Map<String, String> listImagesThumbnail = ProductService.getInstance().selectImageThumbnail();
-                int stt=1;
-                for (CartItems sp :sanPhams) {
+                int stt = 1;
+                for (CartItems sp : sanPhams) {
                     tongGiaTri += sp.getTotalPrice();
+
             %>
-            <td><%= stt++ %></td>
+            <td><%= stt++ %>
+            </td>
             <td>
                 <div>
                     <p>
@@ -68,7 +94,7 @@
             <td>
                 <div class="cart-info">
                     <%
-                        String productId =sp.getProduct().getId();
+                        String productId = sp.getProduct().getId();
                         String imageSource = listImagesThumbnail.get(productId);
                     %>
                     <img src="<%=imageSource%>" alt="">
@@ -76,7 +102,8 @@
             </td>
             <td>
                 <div>
-                    <p><%= sp.getProduct().getId() %></p>
+                    <p><%= sp.getProduct().getId() %>
+                    </p>
                 </div>
             </td>
             <td>
@@ -86,9 +113,13 @@
             </td>
             <td>
                 <div class="change-quantity">
-                    <a href="QuantityServlet?thuchien=tang&masanpham=<%= sp.getProduct().getId()%>" class="cart-btn-plus" style="font-size: 2.4rem; padding: 8px; border: 4px; cursor: pointer;">+</a>
+                    <a href="QuantityServlet?thuchien=tang&masanpham=<%= sp.getProduct().getId()%>"
+                       class="cart-btn-plus"
+                       style="font-size: 2.4rem; padding: 8px; border: 4px; cursor: pointer;">+</a>
                     <input type="number" value="<%= sp.getQuantity()%>" name="quantity" disabled>
-                    <a href="QuantityServlet?thuchien=giam&masanpham=<%= sp.getProduct().getId()%>" class="cart-btn-minus" style="font-size: 2.4rem; padding: 8px;border: 4px; cursor: pointer; font-weight: 800;">-</a>
+                    <a href="QuantityServlet?thuchien=giam&masanpham=<%= sp.getProduct().getId()%>"
+                       class="cart-btn-minus"
+                       style="font-size: 2.4rem; padding: 8px;border: 4px; cursor: pointer; font-weight: 800;">-</a>
                 </div>
             </td>
             <td class="totalPricePerItem"><%= nf.format(sp.getTotalPrice()) %>đ</td>
@@ -98,7 +129,10 @@
                 </a>
             </td>
             </tr>
-            <% } // End of for loop %>
+            <%
+
+                } // End of for loop
+            %>
         </table>
         <!-- Other HTML content... -->
     </div>
@@ -108,13 +142,23 @@
                 <td>
                     Tổng số tiền
                 </td>
-                <td id="grandTotal"> <%= nf.format(tongGiaTri)%>đ</td>
+                <td id="grandTotal"><%= nf.format(tongGiaTri)%>đ</td>
             </tr>
         </table>
     </div>
+    <form action="./CheckQuantityServlet" method="get">
     <div class="buy-button-wraper">
-        <a href="order.jsp" class="button-link">Mua</a>
+       <button type="submit">mua</button>
+<%--      Người dùng sau khi ấn mua sẽ phải đạt đủ điều kiện sau
+        1:Người dùng phải đăng nhập
+        2:Người dùng phải có tồn tại ít nhất 1 sản phẩm trong giỏ hàng
+
+
+--%>
+
+
     </div>
+    </form>
 </div>
 <div id="footerContainer">
 

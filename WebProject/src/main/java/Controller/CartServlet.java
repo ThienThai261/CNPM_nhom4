@@ -19,11 +19,20 @@ public class CartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ShoppingCart gioHang = (ShoppingCart) req.getSession().getAttribute("cart");
         ProductService ps = new ProductService();
+        //Error message để thông báo những kiều kiện ngăn chặn người dùng mua
+        String errorMessage = req.getParameter("errorMessage");
+        String message = req.getParameter("message");
+        String deletedProductId = req.getParameter("deletedProductId");
+
         if (gioHang == null) {
+            //Tạo mới giỏ hàng nếu đang null
             gioHang = new ShoppingCart();
             req.getSession().setAttribute("cart", gioHang);
         }
         Map<String, String> listImagesThumbnail = ps.selectImageThumbnail();
+        req.setAttribute("errorMessage", errorMessage);
+        req.setAttribute("message", message);
+        req.setAttribute("deletedProductId", deletedProductId);
         List<CartItems> danhSachSanPham = gioHang.getDanhSachSanPham();
         req.getSession().setAttribute("list-sp", danhSachSanPham);
         req.setAttribute("listImagesThumbnail", listImagesThumbnail);
@@ -33,5 +42,8 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        }
+
+
     }
-}
+
