@@ -22,6 +22,8 @@ public class CheckQuantityServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
+        //Lấy ra session chứa attribute account
+
         Account account = (Account) session.getAttribute("account");
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         ProductService productService = ProductService.getInstance();
@@ -35,12 +37,12 @@ public class CheckQuantityServlet extends HttpServlet {
             String productId = cartItem.getProduct().getId();
             int requiredQuantity = cartItem.getQuantity();
             Product product = productService.findById(productId);
-
+            //Kiểm tra số lượng sản phẩm từ giỏ hàng có đáp ứng đủ cho mua không
             if (product.getQuantity() < requiredQuantity) {
                 iterator.remove();
                 cart.remove(productId); // Loại bỏ sản phẩm khỏi giỏ hàng
                 removedProductIds.add(productId); // Thêm ID của sản phẩm bị loại bỏ vào danh sách
-                allProductsAvailable = false;
+                allProductsAvailable = false;//Biến dùng để check xem có sự thay đổi không
             }
         }
 

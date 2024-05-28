@@ -19,11 +19,13 @@ public class CartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ShoppingCart gioHang = (ShoppingCart) req.getSession().getAttribute("cart");
         ProductService ps = new ProductService();
+        //Error message để thông báo những kiều kiện ngăn chặn người dùng mua
         String errorMessage = req.getParameter("errorMessage");
         String message = req.getParameter("message");
         String deletedProductId = req.getParameter("deletedProductId");
 
         if (gioHang == null) {
+            //Tạo mới giỏ hàng nếu đang null
             gioHang = new ShoppingCart();
             req.getSession().setAttribute("cart", gioHang);
         }

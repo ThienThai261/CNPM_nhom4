@@ -149,6 +149,14 @@
     <form action="./CheckQuantityServlet" method="get">
     <div class="buy-button-wraper">
        <button type="submit">mua</button>
+<%--      Người dùng sau khi ấn mua sẽ phải đạt đủ điều kiện sau
+        1:Người dùng phải đăng nhập
+        2:Người dùng phải có tồn tại ít nhất 1 sản phẩm trong giỏ hàng
+
+
+--%>
+
+
     </div>
     </form>
 </div>

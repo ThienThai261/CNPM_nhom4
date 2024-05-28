@@ -100,7 +100,7 @@
                                 <p class="product-price"><%= nf.format(product.getPrice()) %>đ</p>
                                 <div class="order">
                                     <a href="AddToCartServlet?masanpham=<%=product.getId()%>" class="btn-add-to-cart"
-                                       style="text-decoration: none">Thêm vào giỏ hàng</a>
+                                       style="text-decoration: none">Thêm vào giỏ hàng</a> //Nơi kích hoạt nút thêm vào giỏ hàng
                                 </div>
                                 <span class="rating">
                                     <span class="rating-value"></span>

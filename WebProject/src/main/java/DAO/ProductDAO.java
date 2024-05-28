@@ -285,7 +285,7 @@ public class ProductDAO {
         }
         return products;
     }
-
+    //Thực hiện lấy ra sản phẩm  bằng id được nhập vào
     public static Product getProductById(String productId) {
         JDBI = ConnectJDBI.connector();
         try {
