@@ -1,7 +1,7 @@
+
 package Controller;
 
 import Service.AccountService;
-import Service.FeedbackAndRatingService;
 import Service.OrderService;
 import Service.ProductService;
 
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Map;
-
 
 @WebServlet(name = "ServletAdmin", value = "/admin")
 public class ServletAdmin extends HttpServlet {
@@ -29,12 +28,10 @@ public class ServletAdmin extends HttpServlet {
         AccountService as = AccountService.getInstance();
         ProductService ps = ProductService.getInstance();
         OrderService or = OrderService.getInstance();
-        FeedbackAndRatingService totalReview = FeedbackAndRatingService.getInstance();
         int totalAccounts = as.totalAcount();
         int totalProducts = ps.totalQuantityProduct();
         int totalOrders = or.totalOrder();
-        // TODO: quan: fix totalReviews
-        int totalReviews = totalReview.getTotalNumberOfComments();;
+        int totalReviews = 82;
         int year = Calendar.getInstance().getTime().getYear() + 1900;
         String date = req.getParameter("date") == null ? year + "-01-01" : req.getParameter("date");
         Map<String, String> categorys = ps.selectCategory();
@@ -64,3 +61,4 @@ public class ServletAdmin extends HttpServlet {
         req.getRequestDispatcher("Admin.jsp").forward(req, resp);
     }
 }
+

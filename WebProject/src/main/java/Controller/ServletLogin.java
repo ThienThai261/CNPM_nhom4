@@ -1,10 +1,10 @@
+
 package Controller;
 
 
 import DAO.AccountDAO;
 import Model.Account;
 import Service.AccountService;
-import Service.EncryptService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,8 +33,6 @@ public class ServletLogin extends HttpServlet {
             req.getRequestDispatcher("Login.jsp").forward(req, resp);
         } else {
             if (account != null) {
-                String hashPass = EncryptService.getInstance().encryptMd5(account.getPassword());
-                account.setPassword(hashPass);
                 if (as.isLoginSuccess(account)) {
                     HttpSession session = req.getSession();
                     session.setAttribute("account", account);
@@ -54,3 +52,4 @@ public class ServletLogin extends HttpServlet {
         }
     }
 }
+
