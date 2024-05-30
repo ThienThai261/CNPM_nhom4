@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
 <<<<<<< HEAD
   <component name="ProjectRootManager">
 =======
+=======
+>>>>>>> 759763aaac902c5c1ce53cab025c99a753c7ea1d
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -12,7 +16,10 @@
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_20" default="true" project-jdk-name="corretto-20" project-jdk-type="JavaSDK">
+<<<<<<< HEAD
 >>>>>>> phuclong
+=======
+>>>>>>> 759763aaac902c5c1ce53cab025c99a753c7ea1d
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
